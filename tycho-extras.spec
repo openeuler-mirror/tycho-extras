@@ -1,7 +1,7 @@
 %global xmvn_libdir %(realpath $(dirname $(readlink -f $(which xmvn)))/../lib)
 Name:                tycho-extras
 Version:             1.3.0
-Release:             2
+Release:             3
 Summary:             Additional plugins for Tycho
 License:             EPL-1.0
 URL:                 http://eclipse.org/tycho/
@@ -27,6 +27,7 @@ BuildRequires:       mvn(org.eclipse.tycho:org.eclipse.tycho.p2.resolver.shared)
 BuildRequires:       mvn(org.eclipse.tycho:sisu-equinox-launching) mvn(org.eclipse.tycho:tycho-core)
 BuildRequires:       mvn(org.eclipse.tycho:tycho-p2-facade)
 BuildRequires:       mvn(org.eclipse.tycho:tycho-packaging-plugin)
+BuildRequires:       mvn(org.fedoraproject.p2:org.fedoraproject.p2)
 %description
 A small set of plugins that work with Tycho to provide additional functionality
 when building projects of an OSGi nature.
@@ -45,6 +46,7 @@ This package contains the API documentation for %{name}.
 %pom_remove_plugin org.eclipse.m2e:lifecycle-mapping
 %pom_remove_plugin org.sonatype.plugins:maven-properties-plugin tycho-p2-extras-plugin
 %pom_remove_dep org.apache.maven:apache-maven tycho-p2-extras-plugin
+%pom_add_dep org.fedoraproject.p2:org.fedoraproject.p2 tycho-eclipserun-plugin/pom.xml
 %mvn_alias :{*} org.eclipse.tycho:@1
 
 %build
@@ -62,6 +64,9 @@ ln -s %{_javadir}/tesla-polyglot/polyglot-common.jar %{buildroot}%{xmvn_libdir}/
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sat Apr 2 2022 xiaoqianlv <xiaoqian@nj.iscas.ac.cn> - 1.3.0-3
+- fix build fail
+
 * Sun Sep 13 2020 yanan li <liyanan032@huawei.com> - 1.3.0-2
 - fix build fail
 
